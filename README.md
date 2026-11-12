@@ -21,7 +21,7 @@ EaseFilter Folder Locker is a comprehensive Windows file and folder protection s
 
 Folder Locker is built for enterprise-grade security, operating deep within the Windows OS to ensure policies cannot be bypassed by user-mode applications.
 
-<Image alt="Zero Trust Security Architecture diagram showing identity, verification, and access monitoring" caption="Zero Trust Implementation at the Kernel Level" src="image_agent_tag_1249373748123186047"/>
+<Image alt="Zero Trust Security Architecture diagram showing identity, verification, and access monitoring" caption="Zero Trust Implementation at the Kernel Level" src="https://www.easefilter.com/images/zero-trust-architecture.jpg"/>
 
 ### 1. Kernel-Mode Minifilter Framework
 Built on the Windows File System Minifilter driver model, providing maximum stability and compatibility across Windows 7 through Windows 11 and Windows Server. 

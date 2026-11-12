@@ -1,4 +1,68 @@
-# [Folder Locker Example](https://www.easefilter.com/Forums_Files/FolderLocker.htm)
+# EaseFilter Folder Locker
+
+EaseFilter Folder Locker is a comprehensive Windows file and folder protection solution built on the **EaseFilter File Control, Encryption, and Process Filter Driver SDK**. It provides developers and administrators with the ability to lock, hide, encrypt, and restrict access to sensitive files and folders in real time, preventing unauthorized access, modification, and data exfiltration.
+
+<Image alt="Concept illustration of a folder secured with a padlock" caption="Secure your sensitive files and folders" src="https://www.easefilter.com/images/folderlocker-architecture.jpg"/>
+
+---
+
+## 🚀 Key Capabilities
+
+*   **Lock & Restrict Access:** Prevent unauthorized users or processes from opening, reading, writing, renaming, or deleting files. Enforce access rules selectively by process, user, or application behavior.
+*   **Hide Files and Folders:** Completely camouflage sensitive items from Windows Explorer and other applications, protecting them against accidental discovery or deletion.
+*   **Granular Control with Filter Rules:** Configure security policies using file names, folder paths, or wildcard patterns. Apply specific read-only, deny-write, or full-access restrictions.
+*   **User & Process-Based Exclusions:** Whitelist trusted users or processes to bypass restrictions—perfect for allowing system services to operate while blocking untrusted or unknown applications.
+*   **Real-Time Monitoring & Alerts:** Receive instant telemetry and notifications on unauthorized access attempts for robust auditing and compliance tracking.
+*   **Secure File Sharing with DRM:** Embed Digital Rights Management (DRM) policies directly into the file header. Share files internally or externally while maintaining control over expiration times and allowed access rights.
+
+---
+
+## 🏗️ Technical Architecture
+
+Folder Locker is built for enterprise-grade security, operating deep within the Windows OS to ensure policies cannot be bypassed by user-mode applications.
+
+<Image alt="Zero Trust Security Architecture diagram showing identity, verification, and access monitoring" caption="Zero Trust Implementation at the Kernel Level" src="image_agent_tag_1249373748123186047"/>
+
+### 1. Kernel-Mode Minifilter Framework
+Built on the Windows File System Minifilter driver model, providing maximum stability and compatibility across Windows 7 through Windows 11 and Windows Server. 
+*   **I/O Interception:** Intercepts and manages I/O Request Packets (IRPs) for `CreateFile`, `ReadFile`, `WriteFile`, and `SetInformation` before they reach the storage stack.
+*   **Process & Context Awareness:** Automatically identifies the Process ID, User SID, and Application Name associated with every file I/O request.
+
+### 2. Zero-Trust Security & Anti-Ransomware
+*   **Kernel-Level Default Deny:** Policies remain active even if the user possesses Local Admin rights, preventing malicious privilege escalation.
+*   **Anti-Ransomware Logic:** Programmatically block mass-rename or mass-deletion events in real-time before data is compromised.
+
+### 3. Transparent File Encryption (TFE)
+*   **On-the-Fly AES-256:** FIPS 140-2 compliant encryption utilizing the Microsoft CNG library with hardware acceleration (AES-NI).
+*   **Dual-View Isolation:** Unauthorized processes see only raw ciphertext, while authorized processes seamlessly read decrypted plaintext—requiring zero modifications to your applications.
+
+---
+
+## 🛠️ Usage & Configuration
+
+### 1. Folder Lock Setup
+To protect your files, add a target folder to the locker and configure its baseline access rights. You can toggle permissions to allow or deny:
+*   File creation, deletion, writing, and reading.
+*   File renaming and security attribute modifications.
+*   Execution, copying out, network access, and file hiding.
+
+### 2. Granular Access Control
+Click **Add User Rights** or **Add Process Rights** to establish specific overrides. For instance, you can deny read access to `Everyone` but grant explicit read/write access to your proprietary application (`myapp.exe`) or a specific IT admin SID.
+
+### 3. Creating Encrypted Share Files (DRM)
+Use the embedded Transparent File Encryption to create shareable files with built-in digital rights. 
+*   Set an expiration time for the file.
+*   Authorize specific users, processes, or computers.
+*   Restrict downstream actions (e.g., prevent the file from being copied, edited, or printed).
+
+### 4. File Audit & Access Reports
+Track the status of all shared and protected files. Audit logs provide visibility into:
+*   Who accessed the file (User/Process).
+*   When and from where the file was accessed.
+*   Whether the access request was authorized or denied, and the specific rule that triggered the denial.
+
+---
+## [A C# Folder Locker Example](https://www.easefilter.com/Forums_Files/FolderLocker.htm)
  
 The folder locker example was implemented with the Transparent File Encryption and Control Filter Driver SDK. With the folder locker you can prevent your protected files being read,written,deleted, renamed, copied out of the protected folder, allow you to authorize or deny the file access to specific user or process, also allow you to hide the files or automatically encrypt/decrypt the files on the fly. 
 
@@ -58,6 +122,18 @@ To set the access rights to the specific users or processes by clicking "Add Use
 * [Filter Driver Developer Guide](https://www.easefilter.com/kb/DeveloperGuide.htm)
 * [MiniFilter Filter Driver Framework](https://www.easefilter.com/kb/minifilter-framework.htm)
 * [Isolation Filter Driver](https://www.easefilter.com/kb/Isolation_Filter_Driver.htm)
+
+## License
+
+This repository contains two distinct licensing categories:
+
+1. **Wrapper/Implementation Code (MIT License):** 
+   The source code, scripts, and configuration files provided directly in this repository are licensed under the [MIT License](LICENSE). You are free to modify, distribute, and use this specific integration code.
+
+2. **EaseFilter SDK (Commercial License):**
+   This project requires the EaseFilter SDK (including its binaries, filter drivers, and core libraries) to function. The EaseFilter SDK is **proprietary commercial software** and is strictly excluded from the MIT License.   
+   To use the EaseFilter SDK for commercial purposes or in a production environment, you must obtain a valid commercial license directly from [EaseFilter](https://www.easefilter.com/license.pdf).
+
 
 ## Support
 If you have questions or need help, please contact support@easefilter.com 
